@@ -32,7 +32,7 @@ ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
     'localhost:8000',
-    '127.0.0.1:8000'
+    '127.0.0.1:8000',
     'django-tutorial-gc.onrender.com'
 ]
 
