@@ -6,3 +6,8 @@ class LogMessageForm(forms.ModelForm):
     class Meta:
         model = LogMessage
         fields = ("message",)  # NOTE: the trailing comma is required
+
+class EditMessageForm(forms.ModelForm):
+    class Meta:
+        model = LogMessage
+        fields = '__all__'  # NOTE: the trailing comma is required

@@ -15,4 +15,8 @@ urlpatterns = [
     path("about/", views.about, name="about"),
     path("contact/", views.contact, name="contact"),
     path("log/", views.log_message, name="log"),
+    path("contact/", views.contact, name="contact"),
+    path("edit_message/<int:message_id>/", views.edit_message, name="edit_message"),
+    path('delete_message/<int:message_id>/', views.delete_message, name='delete_message'),
+
 ]

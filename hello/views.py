@@ -1,8 +1,9 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.utils.timezone import datetime
+from django.views.decorators.http import require_POST
 from django.views.generic import ListView
 
-from hello.forms import LogMessageForm
+from hello.forms import LogMessageForm, EditMessageForm
 from hello.models import LogMessage
 
 
@@ -48,3 +49,27 @@ def log_message(request):
             return render(request, "hello/log_message.html", {"form": form})
     else:
         return render(request, "hello/log_message.html", {"form": form})
+
+
+def edit_message(request, message_id):
+    message = get_object_or_404(LogMessage, id=message_id)
+    print(message)
+    if request.method == "POST":
+        form = EditMessageForm(request.POST, instance=message)
+
+        if form.is_valid():
+            form.save()
+            return redirect("home")
+        else:
+            return render(request, "hello/log_message.html", {"form": form})
+    else:
+        form = EditMessageForm(instance=message)
+        return render(request, "hello/edit_message.html", {"form": form})
+
+
+@require_POST
+def delete_message(request, message_id):
+    """Deletes a specific log message."""
+    message = get_object_or_404(LogMessage, id=message_id)
+    message.delete()
+    return redirect('home')
